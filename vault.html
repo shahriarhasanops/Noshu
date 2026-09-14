@@ -1,0 +1,8 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Noshu × Noushin</title><link rel="stylesheet" href="/static/style.css"></head>
+<body><header><div><b>Noshu × Noushin</b><small>our private little space ♡</small></div><a href="/logout">Lock</a></header>
+<main class="wrap"><section class="hero"><div><div class="pill">PRIVATE • TWO PEOPLE</div><h1>Our memories</h1><p>Little videos & sounds, kept in our locked room.</p></div>
+<form class="upload" action="/upload" method="post" enctype="multipart/form-data"><label class="uploadbtn">＋ Add memory<input type="file" name="file" accept="video/*,audio/*" onchange="this.form.submit()"></label></form></section>
+<section class="grid">{% for x in media %}<article class="memory"><div class="media">{% if x.kind=="video" %}<video controls controlsList="nodownload noplaybackrate" disablePictureInPicture src="/media/{{x.filename}}"></video>{% else %}<div class="audioIcon">♫</div><audio controls controlsList="nodownload" src="/media/{{x.filename}}"></audio>{% endif %}</div>
+<div class="meta"><span>{{x.original_name}}</span><form action="/delete/{{x.filename}}" method="post" onsubmit="return confirm('Delete this memory?')"><button class="delete">Delete</button></form></div></article>
+{% else %}<div class="empty"><div>♡</div><h2>Nothing here yet</h2><p>Add your first memory.</p></div>{% endfor %}</section></main>
+<script>document.addEventListener("contextmenu",e=>e.preventDefault());document.addEventListener("dragstart",e=>e.preventDefault());document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&["s","u"].includes(e.key.toLowerCase()))e.preventDefault();});</script></body></html>
